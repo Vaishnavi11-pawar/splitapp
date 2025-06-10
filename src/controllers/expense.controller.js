@@ -66,6 +66,11 @@ export const getAllExpenses = asyncHandler(async (req, res) => {
 
    try {
      const expenses = await Expense.find().sort({ createdAt: -1 });
+     if (!expenses || expenses.length === 0) {
+        return res.status(200).json(
+            new ApiResponse(200, [], "No expenses found in the database")
+        );
+     }
      return res.status(200).json(new ApiResponse(200, expenses, "Fetched all expenses"));
  
    } catch (error) {
