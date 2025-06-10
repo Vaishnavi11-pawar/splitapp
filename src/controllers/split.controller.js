@@ -28,6 +28,13 @@ export const getAllPeople = asyncHandler( async (req, res) => {
 export const getBalances = asyncHandler( async (req, res) => {
     try {
         const expenses = await Expense.find();
+        
+        if (!expenses || expenses.length === 0) {
+            return res.status(200).json(
+                new ApiResponse(200, {}, "No expenses found to calculate balances")
+            );
+        }
+
         const balances = calculateBalances(expenses);
         return res.status(200).json(new ApiResponse(200, balances, "Balances Calculated."));
         
