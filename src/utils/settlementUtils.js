@@ -7,25 +7,30 @@ export const calculateBalances = (expenses) => {
 
         // calculating the shares
         if (split_type === "equal") {
-            const share = amount / shared_between.length;
+            const share = Number((amount / shared_between.length).toFixed(2));
             shared_between.forEach(p => shareMap[p] = share);
         } else if (split_type === "percentage") {
             shared_between.forEach(p => {
                 const percent = split_details[p] || 0;
-                shareMap[p] = (percent / 100) * amount;
+                shareMap[p] = Number(((percent / 100) * amount).toFixed(2));
             });
         } else if (split_type === "exact") {
+            Object.keys(split_details).forEach(p => {
+                shareMap[p] = Number(split_details[p].toFixed(2));
+            });
             shareMap = split_details;
         }
 
         // subtracting the shares
         for (const person of shared_between) {
             if (!balances[person]) balances[person] = 0;
-            balances[person] -= shareMap[person] || 0;
+            // balances[person] -= shareMap[person] || 0;
+            balances[person] = Number((balances[person] - (shareMap[person] || 0)).toFixed(2));
         }
 
         if (!balances[paid_by]) balances[paid_by] = 0;
-        balances[paid_by] += amount;
+        // balances[paid_by] += amount;
+        balances[paid_by] = Number((balances[paid_by] + amount).toFixed(2));
     }
 
     return balances;
