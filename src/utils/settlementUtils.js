@@ -44,8 +44,8 @@ export const simplifySettlements = (balances) => {
     const owed = [];
 
     for (const [person, amount] of Object.entries(balances)) {
-        if (amount < 0) owes.push({person, amount: -amount});
-        else if (amount > 0) owed.push({person, amount});
+        if (amount < 0) owes.push({person, amount: Number((-amount).toFixed(2))});
+        else if (amount > 0) owed.push({person, amount: Number(amount.toFixed(2))});
     }
 
     owes.sort((a,b) => b.amount - a.amount);
@@ -54,12 +54,14 @@ export const simplifySettlements = (balances) => {
     while (owes.length && owed.length) {
         const debtor = owes[0];
         const creditor = owed[0];
-        const payment = Math.min(debtor.amount, creditor.amount);
+        const payment = Number(Math.min(debtor.amount, creditor.amount).toFixed(2));
 
         transactions.push({ from: debtor.person, to: creditor.person, amount: payment });
 
-        debtor.amount -= payment;
-        creditor.amount -= payment;
+        // debtor.amount -= payment;
+        debtor.amount = Number((debtor.amount - payment).toFixed(2));
+        // creditor.amount -= payment;
+        creditor.amount = Number((creditor.amount - payment).toFixed(2));
 
         if (debtor.amount === 0) owes.shift();
         if (creditor.amount === 0) owed.shift();
