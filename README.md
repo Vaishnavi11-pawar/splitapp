@@ -3,8 +3,10 @@
 A RESTful API service for managing and splitting group expenses, built with Node.js, Express, and MongoDB.
 
 ## 🚀 Live Demo
+- Frontend URL: [https://splitappfrontend.vercel.app](https://splitappfrontend.vercel.app)
+- Frontend Codebase: [Github](https://github.com/Vaishnavi11-pawar/splitappfrontend)
 - API Base URL: [https://splitapp-ebrj.onrender.com/api/v1](https://splitapp-ebrj.onrender.com/api/v1)
-- API Documentation: [Postman Collection](your-gist-url)
+- API Documentation: [Postman Collection](https://gist.github.com/Vaishnavi11-pawar/36a9de459aec2db6813285446c282e56)
 
 ## 🛠️ Tech Stack
 - Node.js & Express.js
